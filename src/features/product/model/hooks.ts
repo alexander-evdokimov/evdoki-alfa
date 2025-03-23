@@ -1,16 +1,15 @@
-import { useState } from "react";
 import { ProductFilter } from "./constants";
 import { useProductStore } from "./store";
+import { Product } from "../types";
 
-export const useProductFilters = (filter: ProductFilter) => {
-  const { products } = useProductStore();
-  const [productFilter, setProductFilter] = useState(filter);
+export const useFiltredProducts = () => {
+  const { products, filter } = useProductStore();
 
-  const filtredProducts =
-    productFilter === "FAVORITE" ? products.filter((p) => p.favorite) : products;
-
-  return {
-    filtredProducts,
-    setProductFilter,
+  const applyFilter = (products: Product[], filter: ProductFilter): Product[] => {
+    return filter === "FAVORITE" ? products.filter((p) => p.favorite) : products;
   };
+
+  const filtredProducts = applyFilter(products, filter);
+
+  return filtredProducts;
 };

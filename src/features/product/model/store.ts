@@ -6,7 +6,6 @@ import { ProductFilter } from "./constants";
 
 interface ProductState {
   products: Product[];
-  filtredProducts: Product[];
   filter: ProductFilter;
   loading: boolean;
   error?: Error | string;
@@ -18,15 +17,12 @@ interface ProductState {
 
 export const useProductStore = create<ProductState>()((set) => ({
   products: [],
-  filtredProducts: [],
   loading: true,
   filter: "ALL",
   setFilter: (filter) =>
-    set((state) => ({
+    set({
       filter,
-      filtredProducts:
-        filter === "FAVORITE" ? state.products.filter((p) => p.favorite) : state.products,
-    })),
+    }),
   remove: (id) =>
     set((state) => ({
       products: state.products.filter((product) => product.id !== id),

@@ -28,13 +28,13 @@ export const ProductCard: React.FC<Props> = ({
         className
       )}
     >
-      <div onClick={toggleFavorite} className="absolute top-3 right-3 p-1.5">
+      <button onClick={toggleFavorite} className="absolute top-3 right-3 p-1.5 cursor-pointer">
         <Heart className={cn(favorite && "text-red-600 fill-red-600")} />
-      </div>
+      </button>
 
-      <div className="absolute top-3 left-3 p-1.5" onClick={remove}>
+      <button className="absolute top-3 left-3 p-1.5 cursor-pointer" onClick={remove}>
         <Trash2 />
-      </div>
+      </button>
 
       <div className="w-full h-[250px]">
         <img className="w-full h-full object-contain" src={image} />

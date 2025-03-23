@@ -1,3 +1,5 @@
 export const ROUTES = {
-  PRODUCT: (productId: string | number) => `product/${productId}`,
+  PRODUCTS: "/products",
+  PRODUCT: (productId: string | number) => `/products/${productId}`,
+  PRODUCT_CREATE: "/create-product",
 } as const;

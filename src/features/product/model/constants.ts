@@ -6,6 +6,6 @@ export const mapProductFilter = {
 export type ProductFilter = keyof typeof mapProductFilter;
 
 export const productFilters = Object.entries(mapProductFilter).map(([value, name]) => ({
-  value,
+  value: value as ProductFilter,
   name,
 }));

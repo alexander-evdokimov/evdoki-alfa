@@ -1,40 +1,26 @@
-import { useState, useCallback } from "react";
-import { AxiosPromise } from "axios";
+import { useCallback, useState } from "react";
 
-export interface ApiResponse<T> {
-  result?: T | undefined;
-  error?: Error | undefined;
-  isFetching: boolean;
-}
+export const useApi = <T>(apiRequest: (...args: any) => Promise<T>) => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<T | null>(null);
+  const [errors, setErrors] = useState(null);
 
-type UseApiResponse<T> = [ApiResponse<T>, (...args: any[]) => Promise<void>];
+  const submit = useCallback(async (...args: Parameters<typeof apiRequest>) => {
+    try {
+      setLoading(true);
+      const resp = await apiRequest(args);
+      setData(resp);
+    } catch (e: any) {
+      setErrors(e);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
-export function useApi<T>(serviceMethod: (...args: any[]) => AxiosPromise<T>): UseApiResponse<T> {
-  const [result, setResult] = useState<T | undefined>(undefined);
-  const [isFetching, setFetching] = useState(false);
-  const [error, setError] = useState<Error | undefined>(undefined);
-
-  const apiCallback = useCallback(
-    async (...args: any[]) => {
-      setError(undefined);
-      setFetching(true);
-      try {
-        const result = await serviceMethod(...args);
-        setResult(result.data);
-      } catch (error) {
-        setError(error as Error);
-      }
-      setFetching(false);
-    },
-    [serviceMethod]
-  );
-
-  const apiResponse = {
-    result,
-    error,
-    isFetching,
+  return {
+    loading,
+    data,
+    errors,
+    submit,
   };
-  return [apiResponse, apiCallback];
-}
-
-export default useApi;
+};
