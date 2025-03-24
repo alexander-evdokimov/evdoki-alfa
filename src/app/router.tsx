@@ -1,5 +1,4 @@
-import { ProductsPage } from "@/pages";
-import { Product } from "@/pages/product";
+import { ProductsPage, ProductCreatePage, ProductPage } from "@/pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export const Router = () => {
@@ -8,7 +7,8 @@ export const Router = () => {
       <Routes>
         <Route path="/" element={<ProductsPage />} />
         <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products/:id" element={<Product />} />
+        <Route path="/products/:id" element={<ProductPage />} />
+        <Route path="/create-product" element={<ProductCreatePage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -13,7 +13,7 @@ export const ProductFilters: React.FC<Props> = ({ className }) => {
   return (
     <div className={cn("flex gap-4", className)}>
       {productFilters.map((productFilter, index) => (
-        <>
+        <React.Fragment key={productFilter.value}>
           <button
             className={cn(
               "cursor-pointer",
@@ -24,7 +24,7 @@ export const ProductFilters: React.FC<Props> = ({ className }) => {
             {productFilter.name}
           </button>
           {index + 1 !== productFilters.length && "|"}
-        </>
+        </React.Fragment>
       ))}
     </div>
   );

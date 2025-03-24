@@ -15,12 +15,12 @@ interface Props {
 }
 
 export const Products: React.FC<Props> = ({ className }) => {
-  const { loading, error, getProducts, toggleFavorite, remove } = useProductStore();
+  const { loading, error, getProducts, toggleFavorite, remove, products } = useProductStore();
 
   const filtredProducts = useFiltredProducts();
 
   useEffect(() => {
-    getProducts();
+    products.length === 0 && getProducts();
   }, []);
 
   const handleToggleFavorite = (e: React.MouseEvent, id: number) => {
@@ -33,9 +33,11 @@ export const Products: React.FC<Props> = ({ className }) => {
     remove(id);
   };
 
+  console.log(products);
+
   return (
     <div className={cn("container py-10", className)}>
-      <div className="flex justify-between mb-10">
+      <div className="flex justify-between gap-5 mb-10 max-sm:flex-col">
         <Link to={ROUTES.PRODUCT_CREATE}>
           <Button type="primary">Добавить товар</Button>
         </Link>

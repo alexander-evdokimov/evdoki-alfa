@@ -1,6 +1,6 @@
 import React from "react";
 import { cn } from "@/shared/utils";
-import { Heart, Trash, Trash2 } from "lucide-react";
+import { Heart, Trash2 } from "lucide-react";
 
 interface Props {
   className?: string;
